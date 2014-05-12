@@ -10,3 +10,27 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# IntelliJ Files and Direcotries
+.idea/workspace.xml
+
+system/
+config/
+test-system/
+test-config/
+
+# Output Directories
+out/
+bin/
+dist/
+build/
+
+# Others
+~$*
+*~
+*.log
+*.out
+*.swp
+*.DS_Store
+*.lock
+
