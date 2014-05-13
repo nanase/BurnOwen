@@ -66,6 +66,9 @@ public class BurnOwen extends JavaPlugin {
                     target.getWorld().playEffect(loc, Effect.SMOKE, 10);
                 }
             } else {
+                target.removePotionEffect(PotionEffectType.REGENERATION);
+                target.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+
                 if (!targetIsSender && !targetIsNotFound && !targetIsOffline) {
                     target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 30, 2));
                     target.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 1));
