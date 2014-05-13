@@ -35,6 +35,7 @@ public class BurnOwen extends JavaPlugin {
         boolean targetIsCreative = false;
         boolean targetIsNotFound = false;
         boolean targetIsOffline = false;
+        boolean targetIsSender = false;
 
         {
             if (args.length == 0) {
@@ -43,6 +44,10 @@ public class BurnOwen extends JavaPlugin {
             }
 
             Player target = this.getServer().getPlayer(args[0]);
+
+            if (args[0].equals(sender.getName())) {
+                targetIsSender = true;
+            }
 
             if (!target.isValid()) {
                 targetIsNotFound = true;
@@ -61,7 +66,7 @@ public class BurnOwen extends JavaPlugin {
                     target.getWorld().playEffect(loc, Effect.SMOKE, 10);
                 }
             } else {
-                if (!targetIsNotFound && !targetIsOffline) {
+                if (!targetIsSender && !targetIsNotFound && !targetIsOffline) {
                     target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 30, 2));
                     target.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 1));
                 }
@@ -88,10 +93,17 @@ public class BurnOwen extends JavaPlugin {
                 } else if (targetIsOffline) {
                     p.sendRawMessage("[BurnOwen] " + sender.getName() + " は " + args[0] + " を燃やそうとしましたがログインしていないため、代わりに燃えました.");
                 } else {
-                    if (targetIsCreative)
-                        p.sendRawMessage("[BurnOwen] " + sender.getName() + " は " + args[0] + " を燃やそうとしましたが、クリエイティブのため失敗しました.");
-                    else
-                        p.sendRawMessage("[BurnOwen] " + args[0] + " は " + sender.getName() + " に燃やされました.");
+                    if (targetIsSender) {
+                        if (targetIsCreative)
+                            p.sendRawMessage("[BurnOwen] " + sender.getName() + " は自分を燃やそうとしましたが、クリエイティブのため失敗しました.");
+                        else
+                            p.sendRawMessage("[BurnOwen] " + sender.getName() + " は自分を燃やしました.");
+                    } else {
+                        if (targetIsCreative)
+                            p.sendRawMessage("[BurnOwen] " + sender.getName() + " は " + args[0] + " を燃やそうとしましたが、クリエイティブのため失敗しました.");
+                        else
+                            p.sendRawMessage("[BurnOwen] " + args[0] + " は " + sender.getName() + " に燃やされました.");
+                    }
                 }
             }
 
