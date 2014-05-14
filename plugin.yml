@@ -1,12 +1,13 @@
 name: BurnOwen
-version: 1.1.1
+version: 1.1.2
 description: Burning ulicknormanowen! Kill with FIRE!
 
 author: Tomona Nanase
-
+website: https://github.com/nanase/BurnOwen
 main: net.nanase.minecraft.burnowen.BurnOwen
 database: false
 
 commands:
     burn:
         description: Burn player.
+        usage: /burn [player]
