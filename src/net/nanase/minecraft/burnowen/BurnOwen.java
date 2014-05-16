@@ -39,7 +39,7 @@ public class BurnOwen extends JavaPlugin {
 
         {
             if (args.length == 0) {
-                sender.sendMessage("[BurnOwen] 燃やす人を指定してね！");
+                this.sendMessage((Player)sender, "燃やす人を指定してね！");
                 return;
             }
 
@@ -81,35 +81,40 @@ public class BurnOwen extends JavaPlugin {
         for (Player p : this.getServer().getOnlinePlayers()) {
             if (p.getDisplayName().equals(args[0])) {
                 if (targetIsNotFound) {
-                    p.sendRawMessage("[BurnOwen] " + args[0] + " は存在しません！ 代わりに燃えてください！");
+                    this.sendMessage(p, args[0] + " は存在しません！ 代わりに燃えてください！");
                 } else if (targetIsOffline) {
-                    p.sendRawMessage("[BurnOwen] ログインしていない " + args[0] + " を燃やそうとしました！ そんなに燃やしたいんですか！？ あなたが燃えてください！");
+                    this.sendMessage(p, "ログインしていない " + args[0] + " を燃やそうとしました！ そんなに燃やしたいんですか！？ あなたが燃えてください！");
                 } else {
                     if (targetIsCreative)
-                        p.sendRawMessage("[BurnOwen] " + sender.getName() + " が燃やそうとしましたが、クリエイティブのため失敗しました.");
+                        this.sendMessage(p, sender.getName() + " が燃やそうとしましたが、クリエイティブのため失敗しました.");
                     else
-                        p.sendRawMessage("[BurnOwen] " + sender.getName() + " により燃やされました.");
+                        this.sendMessage(p, sender.getName() + " により燃やされました.");
                 }
             } else {
                 if (targetIsNotFound) {
-                    p.sendRawMessage("[BurnOwen] " + sender.getName() + " は存在しない " + args[0] + " を燃やそうとしたため、代わりに燃えました.");
+                    this.sendMessage(p, sender.getName() + " は存在しない " + args[0] + " を燃やそうとしたため、代わりに燃えました.");
                 } else if (targetIsOffline) {
-                    p.sendRawMessage("[BurnOwen] " + sender.getName() + " は " + args[0] + " を燃やそうとしましたがログインしていないため、代わりに燃えました.");
+                    this.sendMessage(p, sender.getName() + " は " + args[0] + " を燃やそうとしましたがログインしていないため、代わりに燃えました.");
                 } else {
                     if (targetIsSender) {
                         if (targetIsCreative)
-                            p.sendRawMessage("[BurnOwen] " + sender.getName() + " は自分を燃やそうとしましたが、クリエイティブのため失敗しました.");
+                            this.sendMessage(p, sender.getName() + " は自分を燃やそうとしましたが、クリエイティブのため失敗しました.");
                         else
-                            p.sendRawMessage("[BurnOwen] " + sender.getName() + " は自分を燃やしました.");
+                            this.sendMessage(p, sender.getName() + " は自分を燃やしました.");
                     } else {
                         if (targetIsCreative)
-                            p.sendRawMessage("[BurnOwen] " + sender.getName() + " は " + args[0] + " を燃やそうとしましたが、クリエイティブのため失敗しました.");
+                            this.sendMessage(p, sender.getName() + " は " + args[0] + " を燃やそうとしましたが、クリエイティブのため失敗しました.");
                         else
-                            p.sendRawMessage("[BurnOwen] " + args[0] + " は " + sender.getName() + " に燃やされました.");
+                            this.sendMessage(p, args[0] + " は " + sender.getName() + " に燃やされました.");
                     }
                 }
             }
 
         }
+    }
+
+    private void sendMessage(Player p, String message)
+    {
+        p.sendRawMessage("[BurnOwen] " + message);
     }
 }
