@@ -97,10 +97,17 @@ public class BurnOwen extends JavaPlugin {
                 } else if (targetIsOffline) {
                     this.sendMessage(p, "ログインしていない " + args[0] + " を燃やそうとしました！ そんなに燃やしたいんですか！？ あなたが燃えてください！");
                 } else {
-                    if (targetIsCreative)
-                        this.sendMessage(p, sender.getName() + " が燃やそうとしましたが、クリエイティブのため失敗しました.");
-                    else
-                        this.sendMessage(p, sender.getName() + " により燃やされました.");
+                    if (targetIsSender) {
+                        if (targetIsCreative)
+                            this.sendMessage(p, "自分自身を燃やそうとしましたが、クリエイティブのため失敗しました.");
+                        else
+                            this.sendMessage(p, "自分自身を燃やしました.");
+                    } else {
+                        if (targetIsCreative)
+                            this.sendMessage(p, sender.getName() + " が燃やそうとしましたが、クリエイティブのため失敗しました.");
+                        else
+                            this.sendMessage(p, sender.getName() + " により燃やされました.");
+                    }
                 }
             } else {
                 if (targetIsNotFound) {
