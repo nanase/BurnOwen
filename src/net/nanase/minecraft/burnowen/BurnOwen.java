@@ -43,7 +43,7 @@ public class BurnOwen extends JavaPlugin {
                 return;
             }
 
-            Player target = this.getServer().getPlayer(args[0]);
+            Player target = this.getServer().getPlayerExact(args[0]);
 
             if (args[0].equals(sender.getName())) {
                 targetIsSender = true;
