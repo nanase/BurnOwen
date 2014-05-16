@@ -139,10 +139,10 @@ public class BurnOwen extends JavaPlugin {
     }
 
     private void sendMessage(Player p, String message) {
-        p.sendRawMessage("[BurnOwen] " + message);
+        p.sendRawMessage("§4[BurnOwen]§F " + message);
     }
 
     private void sendConsoleMessage(CommandSender sender, String message) {
-        sender.sendMessage("[BurnOwen] " + message);
+        sender.sendMessage("§4[BurnOwen]§F " + message);
     }
 }
