@@ -81,17 +81,14 @@ public class BurnOwen extends JavaPlugin {
                 else if (targetIsOffline)
                     this.sendMessage(p, "ログインしていない " + args[0] + " を燃やそうとしました！ そんなに燃やしたいんですか！？ あなたが燃えてください！");
                 else {
-                    if (targetIsSender) {
-                        if (targetIsCreative)
-                            this.sendMessage(p, "自分自身を燃やそうとしましたが、クリエイティブのため失敗しました.");
-                        else
-                            this.sendMessage(p, "自分自身を燃やしました.");
-                    } else {
-                        if (targetIsCreative)
-                            this.sendMessage(p, sender.getName() + " が燃やそうとしましたが、クリエイティブのため失敗しました.");
-                        else
-                            this.sendMessage(p, sender.getName() + " により燃やされました.");
-                    }
+                    if (targetIsSender)
+                        this.sendMessage(p, targetIsCreative ?
+                                "自分自身を燃やそうとしましたが、クリエイティブのため失敗しました." :
+                                "自分自身を燃やしました.");
+                    else
+                        this.sendMessage(p, targetIsCreative ?
+                                sender.getName() + " が燃やそうとしましたが、クリエイティブのため失敗しました." :
+                                sender.getName() + " により燃やされました.");
                 }
             } else {
                 if (targetIsNotFound)
@@ -99,17 +96,14 @@ public class BurnOwen extends JavaPlugin {
                 else if (targetIsOffline)
                     this.sendMessage(p, sender.getName() + " は " + args[0] + " を燃やそうとしましたがログインしていないため、代わりに燃えました.");
                 else {
-                    if (targetIsSender) {
-                        if (targetIsCreative)
-                            this.sendMessage(p, sender.getName() + " は自分を燃やそうとしましたが、クリエイティブのため失敗しました.");
-                        else
-                            this.sendMessage(p, sender.getName() + " は自分を燃やしました.");
-                    } else {
-                        if (targetIsCreative)
-                            this.sendMessage(p, sender.getName() + " は " + args[0] + " を燃やそうとしましたが、クリエイティブのため失敗しました.");
-                        else
-                            this.sendMessage(p, args[0] + " は " + sender.getName() + " に燃やされました.");
-                    }
+                    if (targetIsSender)
+                        this.sendMessage(p, targetIsCreative ?
+                                sender.getName() + " は自分を燃やそうとしましたが、クリエイティブのため失敗しました." :
+                                sender.getName() + " は自分を燃やしました.");
+                    else
+                        this.sendMessage(p, targetIsCreative ?
+                                sender.getName() + " は " + args[0] + " を燃やそうとしましたが、クリエイティブのため失敗しました." :
+                                args[0] + " は " + sender.getName() + " に燃やされました.");
                 }
             }
 
