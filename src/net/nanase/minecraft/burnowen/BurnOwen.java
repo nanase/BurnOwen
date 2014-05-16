@@ -76,11 +76,11 @@ public class BurnOwen extends JavaPlugin {
 
         for (Player p : this.getServer().getOnlinePlayers()) {
             if (p.getDisplayName().equals(args[0])) {
-                if (targetIsNotFound) {
+                if (targetIsNotFound)
                     this.sendMessage(p, args[0] + " は存在しません！ 代わりに燃えてください！");
-                } else if (targetIsOffline) {
+                else if (targetIsOffline)
                     this.sendMessage(p, "ログインしていない " + args[0] + " を燃やそうとしました！ そんなに燃やしたいんですか！？ あなたが燃えてください！");
-                } else {
+                else {
                     if (targetIsSender) {
                         if (targetIsCreative)
                             this.sendMessage(p, "自分自身を燃やそうとしましたが、クリエイティブのため失敗しました.");
@@ -94,11 +94,11 @@ public class BurnOwen extends JavaPlugin {
                     }
                 }
             } else {
-                if (targetIsNotFound) {
+                if (targetIsNotFound)
                     this.sendMessage(p, sender.getName() + " は存在しない " + args[0] + " を燃やそうとしたため、代わりに燃えました.");
-                } else if (targetIsOffline) {
+                else if (targetIsOffline)
                     this.sendMessage(p, sender.getName() + " は " + args[0] + " を燃やそうとしましたがログインしていないため、代わりに燃えました.");
-                } else {
+                else {
                     if (targetIsSender) {
                         if (targetIsCreative)
                             this.sendMessage(p, sender.getName() + " は自分を燃やそうとしましたが、クリエイティブのため失敗しました.");
@@ -114,6 +114,7 @@ public class BurnOwen extends JavaPlugin {
             }
 
         }
+
     }
 
     private void setFireToPlayer(Player target, boolean isCreative, boolean allowEffect) {
