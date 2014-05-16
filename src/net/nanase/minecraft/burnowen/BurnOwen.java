@@ -69,25 +69,8 @@ public class BurnOwen extends JavaPlugin {
             } else if (args[0].equals(sender.getName()))
                 targetIsSender = true;
 
-            if (target.getGameMode() == GameMode.CREATIVE) {
-                targetIsCreative = true;
-
-                Location loc = target.getLocation();
-                for (int i = 0; i < 5; i++) {
-                    target.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 2);
-                    target.getWorld().playEffect(loc, Effect.SMOKE, 10);
-                }
-            } else {
-                target.removePotionEffect(PotionEffectType.REGENERATION);
-                target.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-
-                if (!targetIsSender && !targetIsNotFound && !targetIsOffline) {
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 30, 2));
-                    target.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 1));
-                }
-
-                target.setFireTicks(20 * 30);
-            }
+            targetIsCreative = (target.getGameMode() == GameMode.CREATIVE);
+            this.setFireToPlayer(target, targetIsCreative, !targetIsSender && !targetIsNotFound && !targetIsOffline);
         }
 
         for (Player p : this.getServer().getOnlinePlayers()) {
@@ -129,6 +112,27 @@ public class BurnOwen extends JavaPlugin {
                 }
             }
 
+        }
+    }
+
+    private void setFireToPlayer(Player target, boolean isCreative, boolean allowEffect) {
+        if (isCreative) {
+            Location loc = target.getLocation();
+
+            for (int i = 0; i < 5; i++) {
+                target.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 0, 2);
+                target.getWorld().playEffect(loc, Effect.SMOKE, 10);
+            }
+        } else {
+            target.removePotionEffect(PotionEffectType.REGENERATION);
+            target.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+
+            if (allowEffect) {
+                target.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 20 * 30, 2));
+                target.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 20 * 30, 1));
+            }
+
+            target.setFireTicks(20 * 30);
         }
     }
 
