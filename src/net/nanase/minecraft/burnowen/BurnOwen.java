@@ -39,23 +39,35 @@ public class BurnOwen extends JavaPlugin {
 
         {
             if (args.length == 0) {
-                this.sendMessage((Player)sender, "燃やす人を指定してね！");
+                if (sender instanceof Player)
+                    this.sendMessage((Player) sender, "燃やす人を指定してね！");
+                else
+                    this.sendConsoleMessage(sender, "プレイヤー名が指定されていません.");
+
                 return;
             }
 
             Player target = this.getServer().getPlayerExact(args[0]);
 
-            if (args[0].equals(sender.getName())) {
-                targetIsSender = true;
-            }
-
-            if (!target.isValid()) {
+            if (target == null || !target.isValid()) {
                 targetIsNotFound = true;
-                target = (Player) sender;
+
+                if (sender instanceof Player)
+                    target = (Player) sender;
+                else {
+                    this.sendConsoleMessage(sender, "存在しないプレイヤー名です.");
+                    return;
+                }
             } else if (!target.isOnline()) {
                 targetIsOffline = true;
-                target = (Player) sender;
-            }
+                if (sender instanceof Player)
+                    target = (Player) sender;
+                else {
+                    this.sendConsoleMessage(sender, "オフラインプレイヤーです.");
+                    return;
+                }
+            } else if (args[0].equals(sender.getName()))
+                targetIsSender = true;
 
             if (target.getGameMode() == GameMode.CREATIVE) {
                 targetIsCreative = true;
@@ -113,8 +125,11 @@ public class BurnOwen extends JavaPlugin {
         }
     }
 
-    private void sendMessage(Player p, String message)
-    {
+    private void sendMessage(Player p, String message) {
         p.sendRawMessage("[BurnOwen] " + message);
+    }
+
+    private void sendConsoleMessage(CommandSender sender, String message) {
+        sender.sendMessage("[BurnOwen] " + message);
     }
 }
